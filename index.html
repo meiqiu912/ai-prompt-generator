@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI提示词生成器 - 免费在线生成高质量Prompt模板</title>
+<meta name="description" content="免费AI提示词生成器：选择场景，输入主题，一键生成可复制的高质量提示词模板。覆盖小红书文案、短视频脚本、工作汇报、简历优化等12+场景。">
+<meta name="keywords" content="AI提示词,Prompt模板,提示词生成器,AI工具,ChatGPT提示词">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 50%, #f8f6ff 100%);
+    min-height: 100vh;
+    color: #1a1a2e;
+  }
+  .container { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+  header { text-align:center; padding: 40px 0 24px; }
+  .badge {
+    display:inline-block; background:#6c5ce7; color:#fff; font-size:12px; font-weight:600;
+    padding:4px 14px; border-radius:20px; letter-spacing:1px; margin-bottom:16px;
+  }
+  h1 { font-size: 34px; font-weight:800; line-height:1.3; margin-bottom:12px; }
+  h1 span { background: linear-gradient(90deg,#6c5ce7,#a29bfe,#fd79a8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .subtitle { color:#636e72; font-size:15px; line-height:1.7; max-width:560px; margin:0 auto; }
+  .card {
+    background:#fff; border-radius:16px; padding:28px;
+    box-shadow: 0 8px 40px rgba(108,92,231,0.10);
+    margin-top:28px;
+  }
+  .card h2 { font-size:18px; font-weight:700; margin-bottom:6px; }
+  .card .hint { color:#b2bec3; font-size:13px; margin-bottom:20px; }
+  label { font-size:13px; font-weight:600; color:#2d3436; display:block; margin:16px 0 8px; }
+  .scene-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
+  .scene-btn {
+    border:2px solid #e0e0e0; background:#fafafa; border-radius:10px; padding:12px 8px;
+    font-size:13px; font-weight:600; color:#2d3436; cursor:pointer; transition: all .2s; text-align:center;
+  }
+  .scene-btn:hover { border-color:#6c5ce7; background:#f5f3ff; }
+  .scene-btn.active { border-color:#6c5ce7; background:#6c5ce7; color:#fff; box-shadow:0 4px 14px rgba(108,92,231,.3); }
+  input[type="text"] {
+    width:100%; padding:14px 16px; border:2px solid #e0e0e0; border-radius:10px;
+    font-size:15px; outline:none; transition:border .2s;
+  }
+  input[type="text"]:focus { border-color:#6c5ce7; }
+  .btn-gen {
+    width:100%; margin-top:22px; padding:16px; border:none; border-radius:12px;
+    background: linear-gradient(90deg,#6c5ce7,#a29bfe); color:#fff; font-size:16px; font-weight:700;
+    cursor:pointer; transition: transform .15s, box-shadow .2s; letter-spacing:2px;
+    box-shadow: 0 6px 20px rgba(108,92,231,.35);
+  }
+  .btn-gen:hover { transform: translateY(-2px); box-shadow:0 10px 28px rgba(108,92,231,.45); }
+  .btn-gen:active { transform: translateY(0); }
+  .output-area { display:none; margin-top:24px; }
+  .output-area.show { display:block; animation: fadeIn .4s ease; }
+  @keyframes fadeIn { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:translateY(0);} }
+  .output-box {
+    background:#1e1e2e; color:#cdd6f4; border-radius:12px; padding:20px;
+    font-family:"SF Mono", Consolas, "Courier New", monospace; font-size:13.5px; line-height:1.8;
+    white-space:pre-wrap; word-break:break-word; max-height:340px; overflow-y:auto;
+  }
+  .btn-copy {
+    margin-top:12px; padding:10px 24px; border:2px solid #6c5ce7; background:#fff; color:#6c5ce7;
+    border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; transition: all .2s;
+  }
+  .btn-copy:hover { background:#6c5ce7; color:#fff; }
+  .btn-copy.copied { background:#00b894; border-color:#00b894; color:#fff; }
+  .upsell {
+    margin-top:36px; background:linear-gradient(135deg,#2d3436,#636e72); color:#fff; border-radius:16px;
+    padding:28px; text-align:center; position:relative; overflow:hidden;
+  }
+  .upsell::before {
+    content:""; position:absolute; top:-60px; right:-60px; width:160px; height:160px;
+    background:rgba(253,121,168,.25); border-radius:50%;
+  }
+  .upsell h3 { font-size:22px; font-weight:800; margin-bottom:10px; }
+  .upsell p { color:#dfe6e9; font-size:14px; line-height:1.8; margin-bottom:20px; }
+  .price { font-size:32px; font-weight:800; color:#fd79a8; }
+  .price small { font-size:14px; color:#b2bec3; text-decoration:line-through; font-weight:400; }
+  .btn-buy {
+    display:inline-block; margin-top:18px; padding:14px 40px; background:#fd79a8; color:#fff;
+    border-radius:30px; font-size:16px; font-weight:700; text-decoration:none; letter-spacing:1px;
+    transition: transform .15s, box-shadow .2s; box-shadow:0 6px 20px rgba(253,121,168,.4);
+  }
+  .btn-buy:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(253,121,168,.5); }
+  .features { margin-top:36px; }
+  .features h2 { font-size:20px; font-weight:800; text-align:center; margin-bottom:20px; }
+  .feat-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:12px; }
+  .feat {
+    background:#fff; border-radius:12px; padding:16px; box-shadow:0 4px 16px rgba(0,0,0,.05);
+    display:flex; gap:12px; align-items:flex-start;
+  }
+  .feat .icon { font-size:22px; }
+  .feat b { display:block; font-size:14px; margin-bottom:4px; }
+  .feat span { font-size:12.5px; color:#636e72; line-height:1.6; }
+  footer { text-align:center; color:#b2bec3; font-size:12px; margin-top:40px; line-height:1.8; }
+  @media (max-width:640px) {
+    .scene-grid { grid-template-columns: repeat(2,1fr); }
+    h1 { font-size:26px; }
+    .feat-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="badge">✨ 免费使用 · 无需注册</div>
+    <h1>AI提示词<span>生成器</span></h1>
+    <p class="subtitle">选一个场景，输入主题，一键生成可直接复制的高质量 Prompt。专为不会写提示词的新手设计，让 AI 一次就给出你要的答案。</p>
+  </header>
+
+  <div class="card">
+    <h2>🎯 选择你的场景</h2>
+    <p class="hint">免费开放 8 个高频场景，完整版解锁 50+ 个场景模板</p>
+    <div class="scene-grid" id="sceneGrid"></div>
+
+    <label>输入主题 / 产品 / 素材关键词</label>
+    <input type="text" id="topicInput" placeholder="例如：一款帮助打工人做周报的APP / 我的小店卖的芋泥奶茶 / 我的目标是涨粉1万">
+
+    <button class="btn-gen" onclick="generate()">⚡ 一键生成提示词</button>
+
+    <div class="output-area" id="outputArea">
+      <label>📋 生成的提示词（复制后粘贴给 AI 即可用）</label>
+      <div class="output-box" id="outputBox"></div>
+      <button class="btn-copy" id="copyBtn" onclick="copyResult()">📋 复制提示词</button>
+    </div>
+  </div>
+
+  <div class="upsell">
+    <h3>🎁 想要全部 50+ 个场景模板？</h3>
+    <p>《AI工具实战手册》收录：<b>100 个免费 AI 工具</b> + <b>50 个提示词模板</b>（本生成器的完整版）+ <b>10 套实战工作流</b><br>
+    从工具到话术到流程，一次配齐，新手照着做就能上手。</p>
+    <div class="price">¥9.9 <small>¥99</small> <span style="font-size:14px;color:#dfe6e9;font-weight:400"> 限时价</span></div><br>
+    <a class="btn-buy" href="http://82.157.101.183:8088/monika/web/goods/pay-1785625938509-AI工具实战手册100个免费AI工具50个提示词模板.html" target="_blank">立即购买 · 付款后自动发货</a>
+  </div>
+
+  <div class="features">
+    <h2>为什么你需要它？</h2>
+    <div class="feat-grid">
+      <div class="feat"><div class="icon">😫</div><div><b>别再问"AI怎么不好用"</b><span>90% 的问题出在提示词太模糊。结构化模板让 AI 一次听懂你的需求。</span></div></div>
+      <div class="feat"><div class="icon">🚀</div><div><b>30 秒出结果</b><span>选场景→填主题→复制，全程不到 30 秒，效率翻倍。</span></div></div>
+      <div class="feat"><div class="icon">🎯</div><div><b>覆盖 12+ 常用场景</b><span>小红书、短视频、周报、简历、朋友圈、公众号……打工人高频场景全覆盖。</span></div></div>
+      <div class="feat"><div class="icon">💡</div><div><b>免费工具清单</b><span>完整手册附 100 个免费 AI 工具清单，不花一分钱用上顶级 AI。</span></div></div>
+    </div>
+  </div>
+
+  <footer>
+    本工具免费开放 · 完整版《AI工具实战手册》付费解锁更多模板<br>
+    购买后自动发送到邮箱，24 小时内到账，随时下载
+  </footer>
+</div>
+
+<script>
+const SCENES = [
+  { id:"xiaohongshu", name:"📕 小红书文案", tmpl:function(t){
+    return "你是小红书爆款文案专家，擅长写出高点赞、高收藏、高互动的种草笔记。\n\n请为「"+t+"」写一篇小红书种草笔记，要求：\n1. 标题：3个备选，带emoji，有吸引力（可用数字、痛点、悬念）\n2. 正文：200-300字，口语化、真诚、有细节，避免广告腔\n3. 结构：开头痛点/场景引入 → 核心卖点 → 真实体验感 → 行动号召\n4. 结尾带 5-8 个相关话题标签\n5. 语气像朋友分享，不像推销\n\n直接输出，不要解释。";
+  }},
+  { id:"douyin", name:"🎬 短视频脚本", tmpl:function(t){
+    return "你是短视频编导，擅长3秒抓住观众注意力。\n\n请为「"+t+"」创作一条 60 秒短视频脚本，要求：\n1. 黄金3秒开场（制造悬念/反差/痛点）\n2. 分镜脚本：每个镜头标注画面、台词、字幕、BGM建议\n3. 节奏：每5-8秒一个信息点或转折\n4. 结尾设置钩子引导点赞关注评论\n5. 提供 2 个不同风格的开场方案\n\n直接输出脚本表格，不要解释。";
+  }},
+  { id:"report", name:"📊 工作周报", tmpl:function(t){
+    return "你是职场汇报高手，擅长把流水账整理成老板爱看的周报。\n\n请把以下工作内容整理成一份专业周报：「"+t+"」\n要求：\n1. 本周核心成果（用数据说话，突出量化结果）\n2. 遇到的问题与解决方案\n3. 下周计划（按优先级排序）\n4. 需要资源支持的事项\n5. 语气专业但不官僚，重点突出价值\n\n直接输出成稿。";
+  }},
+  { id:"resume", name:"📝 简历优化", tmpl:function(t){
+    return "你是资深HR和简历优化专家，擅长把普通经历写成高匹配度简历。\n\n请优化以下经历描述：「"+t+"」\n要求：\n1. 用 STAR 法则重写（情境-任务-行动-结果）\n2. 每句话都用动词开头，突出量化成果（数字、百分比、规模）\n3. 针对目标岗位突出相关技能\n4. 给出一句话自我评价\n5. 控制在 3-5 条经历描述\n\n直接输出优化后的版本。";
+  }},
+  { id:"wechat", name:"💬 朋友圈营销", tmpl:function(t){
+    return "你是朋友圈文案高手，擅长写出不招人烦、反而想看的营销文案。\n\n请为「"+t+"」写 3 条不同风格的朋友圈文案：\n1. 故事型：用真实小故事带出产品，走心不硬广\n2. 价值型：分享干货+自然植入\n3. 紧迫型：限时优惠，制造稀缺感但不夸张\n每条 80-120 字，附建议配图方向和发布时间。\n\n直接输出。";
+  }},
+  { id:"gzh", name:"📰 公众号文章", tmpl:function(t){
+    return "你是资深新媒体编辑，擅长写有深度、有转发欲的公众号文章。\n\n请以「"+t+"」为主题，写一篇 1500 字的公众号文章框架+开头：\n1. 标题：5个备选（含数字、悬念、利益点）\n2. 文章大纲：引言-3个核心论点-案例-结尾升华\n3. 完整写出引言部分（300字，抓人）\n4. 每个论点给一个真实感强的案例提示\n5. 结尾引导关注+留言互动\n\n直接输出。";
+  }},
+  { id:"interview", name:"💼 面试准备", tmpl:function(t){
+    return "你是资深面试官，熟悉各行业面试套路。\n\n请针对「"+t+"」这个岗位/面试场景：\n1. 预测 8 个最可能被问的问题\n2. 对每个问题给出「回答框架+示例话术」\n3. 指出 3 个常见的致命错误及避免方法\n4. 设计一个可以反问面试官的高质量问题\n5. 给出自我介绍模板（30秒版本）\n\n直接输出，结构化呈现。";
+  }},
+  { id:"poem", name:"✍️ 创意写作", tmpl:function(t){
+    return "你是创意写作大师，文字有画面感和感染力。\n\n请以「"+t+"」为主题创作：\n1. 一首现代诗（8-12行）\n2. 一段 200 字的有画面感的散文\n3. 一句可以作为文案金句的话\n风格要求：不矫情、有真实细节、让人有共鸣。\n\n直接输出。";
+  }},
+];
+
+const FULL_SCENE_NAMES = [
+  "小红书文案","抖音脚本","视频号口播","知乎回答","公众号文章","朋友圈营销",
+  "工作周报","日报","OKR制定","会议纪要","简历优化","面试问答","自我介绍",
+  "产品文案","电商卖点","用户好评","客户跟进","销售话术","售后回复","投诉处理",
+  "英语邮件","英文翻译","语法纠错","雅思写作","论文润色","读书笔记","学习计划",
+  "思维导图","头脑风暴","竞品分析","SWOT","市场调研","品牌故事","起名建议",
+  "节日祝福","婚礼致辞","演讲稿","道歉信","催款话术","谈判策略","时间管理",
+  "健身计划","饮食方案","旅行攻略","收纳整理","亲子对话","情绪疏导","冥想引导","睡前故事"
+];
+
+let sceneGrid = document.getElementById("sceneGrid");
+SCENES.forEach(s => {
+  let b = document.createElement("div");
+  b.className = "scene-btn";
+  b.textContent = s.name;
+  b.dataset.id = s.id;
+  b.onclick = function(){ selectScene(s.id); };
+  sceneGrid.appendChild(b);
+});
+selectScene(SCENES[0].id);
+
+function selectScene(id){
+  document.querySelectorAll(".scene-btn").forEach(b => b.classList.toggle("active", b.dataset.id === id));
+  window._cur = id;
+}
+
+function generate(){
+  const topic = document.getElementById("topicInput").value.trim();
+  if(!topic){ alert("请先输入主题/关键词 😊"); document.getElementById("topicInput").focus(); return; }
+  const scene = SCENES.find(s => s.id === window._cur);
+  const text = scene.tmpl(topic);
+  document.getElementById("outputBox").textContent = text;
+  const area = document.getElementById("outputArea");
+  area.classList.add("show");
+  document.getElementById("copyBtn").textContent = "📋 复制提示词";
+  document.getElementById("copyBtn").classList.remove("copied");
+  area.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function copyResult(){
+  const text = document.getElementById("outputBox").textContent;
+  const btn = document.getElementById("copyBtn");
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>{
+      btn.textContent = "✅ 已复制！去粘贴给AI吧";
+      btn.classList.add("copied");
+    });
+  } else {
+    const ta = document.createElement("textarea");
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); document.body.removeChild(ta);
+    btn.textContent = "✅ 已复制！去粘贴给AI吧";
+    btn.classList.add("copied");
+  }
+}
+</script>
+</body>
+</html>
