@@ -3,236 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI提示词生成器 - 免费在线生成高质量Prompt模板</title>
-<meta name="description" content="免费AI提示词生成器：选择场景，输入主题，一键生成可复制的高质量提示词模板。覆盖小红书文案、短视频脚本、工作汇报、简历优化等12+场景。">
-<meta name="keywords" content="AI提示词,Prompt模板,提示词生成器,AI工具,ChatGPT提示词">
+<title>AI提示词生成器 - 免费一键生成高质量提示词</title>
+<meta name="description" content="免费在线AI提示词生成器：选择场景、输入需求，一键生成结构化高质量提示词，适用于ChatGPT、DeepSeek、Kimi、豆包、文心一言等主流AI。">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 50%, #f8f6ff 100%);
-    min-height: 100vh;
-    color: #1a1a2e;
-  }
-  .container { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
-  header { text-align:center; padding: 40px 0 24px; }
-  .badge {
-    display:inline-block; background:#6c5ce7; color:#fff; font-size:12px; font-weight:600;
-    padding:4px 14px; border-radius:20px; letter-spacing:1px; margin-bottom:16px;
-  }
-  h1 { font-size: 34px; font-weight:800; line-height:1.3; margin-bottom:12px; }
-  h1 span { background: linear-gradient(90deg,#6c5ce7,#a29bfe,#fd79a8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-  .subtitle { color:#636e72; font-size:15px; line-height:1.7; max-width:560px; margin:0 auto; }
-  .card {
-    background:#fff; border-radius:16px; padding:28px;
-    box-shadow: 0 8px 40px rgba(108,92,231,0.10);
-    margin-top:28px;
-  }
-  .card h2 { font-size:18px; font-weight:700; margin-bottom:6px; }
-  .card .hint { color:#b2bec3; font-size:13px; margin-bottom:20px; }
-  label { font-size:13px; font-weight:600; color:#2d3436; display:block; margin:16px 0 8px; }
-  .scene-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
-  .scene-btn {
-    border:2px solid #e0e0e0; background:#fafafa; border-radius:10px; padding:12px 8px;
-    font-size:13px; font-weight:600; color:#2d3436; cursor:pointer; transition: all .2s; text-align:center;
-  }
-  .scene-btn:hover { border-color:#6c5ce7; background:#f5f3ff; }
-  .scene-btn.active { border-color:#6c5ce7; background:#6c5ce7; color:#fff; box-shadow:0 4px 14px rgba(108,92,231,.3); }
-  input[type="text"] {
-    width:100%; padding:14px 16px; border:2px solid #e0e0e0; border-radius:10px;
-    font-size:15px; outline:none; transition:border .2s;
-  }
-  input[type="text"]:focus { border-color:#6c5ce7; }
-  .btn-gen {
-    width:100%; margin-top:22px; padding:16px; border:none; border-radius:12px;
-    background: linear-gradient(90deg,#6c5ce7,#a29bfe); color:#fff; font-size:16px; font-weight:700;
-    cursor:pointer; transition: transform .15s, box-shadow .2s; letter-spacing:2px;
-    box-shadow: 0 6px 20px rgba(108,92,231,.35);
-  }
-  .btn-gen:hover { transform: translateY(-2px); box-shadow:0 10px 28px rgba(108,92,231,.45); }
-  .btn-gen:active { transform: translateY(0); }
-  .output-area { display:none; margin-top:24px; }
-  .output-area.show { display:block; animation: fadeIn .4s ease; }
-  @keyframes fadeIn { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:translateY(0);} }
-  .output-box {
-    background:#1e1e2e; color:#cdd6f4; border-radius:12px; padding:20px;
-    font-family:"SF Mono", Consolas, "Courier New", monospace; font-size:13.5px; line-height:1.8;
-    white-space:pre-wrap; word-break:break-word; max-height:340px; overflow-y:auto;
-  }
-  .btn-copy {
-    margin-top:12px; padding:10px 24px; border:2px solid #6c5ce7; background:#fff; color:#6c5ce7;
-    border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; transition: all .2s;
-  }
-  .btn-copy:hover { background:#6c5ce7; color:#fff; }
-  .btn-copy.copied { background:#00b894; border-color:#00b894; color:#fff; }
-  .upsell {
-    margin-top:36px; background:linear-gradient(135deg,#2d3436,#636e72); color:#fff; border-radius:16px;
-    padding:28px; text-align:center; position:relative; overflow:hidden;
-  }
-  .upsell::before {
-    content:""; position:absolute; top:-60px; right:-60px; width:160px; height:160px;
-    background:rgba(253,121,168,.25); border-radius:50%;
-  }
-  .upsell h3 { font-size:22px; font-weight:800; margin-bottom:10px; }
-  .upsell p { color:#dfe6e9; font-size:14px; line-height:1.8; margin-bottom:20px; }
-  .price { font-size:32px; font-weight:800; color:#fd79a8; }
-  .price small { font-size:14px; color:#b2bec3; text-decoration:line-through; font-weight:400; }
-  .btn-buy {
-    display:inline-block; margin-top:18px; padding:14px 40px; background:#fd79a8; color:#fff;
-    border-radius:30px; font-size:16px; font-weight:700; text-decoration:none; letter-spacing:1px;
-    transition: transform .15s, box-shadow .2s; box-shadow:0 6px 20px rgba(253,121,168,.4);
-  }
-  .btn-buy:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(253,121,168,.5); }
-  .features { margin-top:36px; }
-  .features h2 { font-size:20px; font-weight:800; text-align:center; margin-bottom:20px; }
-  .feat-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:12px; }
-  .feat {
-    background:#fff; border-radius:12px; padding:16px; box-shadow:0 4px 16px rgba(0,0,0,.05);
-    display:flex; gap:12px; align-items:flex-start;
-  }
-  .feat .icon { font-size:22px; }
-  .feat b { display:block; font-size:14px; margin-bottom:4px; }
-  .feat span { font-size:12.5px; color:#636e72; line-height:1.6; }
-  footer { text-align:center; color:#b2bec3; font-size:12px; margin-top:40px; line-height:1.8; }
-  @media (max-width:640px) {
-    .scene-grid { grid-template-columns: repeat(2,1fr); }
-    h1 { font-size:26px; }
-    .feat-grid { grid-template-columns:1fr; }
-  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(160deg,#0f172a 0%,#1e1b4b 100%);color:#e2e8f0;min-height:100vh;line-height:1.6}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 20px 60px}
+  header{text-align:center;margin-bottom:28px}
+  .badge{display:inline-block;background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.4);color:#c4b5fd;font-size:12px;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+  h1{font-size:30px;background:linear-gradient(90deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+  .sub{color:#94a3b8;font-size:15px}
+  .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;margin-bottom:16px;backdrop-filter:blur(8px)}
+  label{display:block;font-size:13px;color:#a5b4fc;margin-bottom:8px;font-weight:600}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+  .tag{padding:8px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);font-size:13px;cursor:pointer;transition:all .2s;background:rgba(255,255,255,.04);color:#cbd5e1}
+  .tag.on{background:linear-gradient(90deg,#7c3aed,#db2777);border-color:transparent;color:#fff;font-weight:600}
+  textarea{width:100%;min-height:90px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px;color:#e2e8f0;font-size:14px;resize:vertical;font-family:inherit}
+  textarea:focus{outline:none;border-color:#8b5cf6}
+  .btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;background:linear-gradient(90deg,#7c3aed,#db2777);color:#fff;transition:transform .15s,opacity .15s}
+  .btn:hover{opacity:.9;transform:translateY(-1px)}
+  .btn:active{transform:scale(.98)}
+  .out{display:none;margin-top:20px}
+  .out.show{display:block}
+  .out-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .out-head h3{font-size:16px;color:#a5b4fc}
+  .copy-btn{background:rgba(139,92,246,.25);border:1px solid #8b5cf6;color:#c4b5fd;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer}
+  .copy-btn:hover{background:rgba(139,92,246,.4)}
+  #result{white-space:pre-wrap;background:rgba(0,0,0,.45);border:1px solid rgba(139,92,246,.3);border-radius:10px;padding:16px;font-size:13.5px;color:#d1d5db;font-family:ui-monospace,Consolas,monospace}
+  .promo{margin-top:24px;background:linear-gradient(120deg,rgba(124,58,237,.15),rgba(219,39,119,.12));border:1px solid rgba(139,92,246,.35);border-radius:14px;padding:20px;text-align:center}
+  .promo h3{color:#f0abfc;font-size:17px;margin-bottom:8px}
+  .promo p{color:#cbd5e1;font-size:13.5px;margin-bottom:12px}
+  .promo a{display:inline-block;background:linear-gradient(90deg,#7c3aed,#db2777);color:#fff;text-decoration:none;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700}
+  footer{text-align:center;color:#64748b;font-size:12px;margin-top:36px}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="wrap">
   <header>
-    <div class="badge">✨ 免费使用 · 无需注册</div>
-    <h1>AI提示词<span>生成器</span></h1>
-    <p class="subtitle">选一个场景，输入主题，一键生成可直接复制的高质量 Prompt。专为不会写提示词的新手设计，让 AI 一次就给出你要的答案。</p>
+    <span class="badge">免费工具 · 无需注册</span>
+    <h1>AI 提示词生成器</h1>
+    <p class="sub">选择场景 → 输入需求 → 一键生成可直接复制的高质量提示词</p>
   </header>
 
   <div class="card">
-    <h2>🎯 选择你的场景</h2>
-    <p class="hint">免费开放 8 个高频场景，完整版解锁 50+ 个场景模板</p>
-    <div class="scene-grid" id="sceneGrid"></div>
-
-    <label>输入主题 / 产品 / 素材关键词</label>
-    <input type="text" id="topicInput" placeholder="例如：一款帮助打工人做周报的APP / 我的小店卖的芋泥奶茶 / 我的目标是涨粉1万">
-
-    <button class="btn-gen" onclick="generate()">⚡ 一键生成提示词</button>
-
-    <div class="output-area" id="outputArea">
-      <label>📋 生成的提示词（复制后粘贴给 AI 即可用）</label>
-      <div class="output-box" id="outputBox"></div>
-      <button class="btn-copy" id="copyBtn" onclick="copyResult()">📋 复制提示词</button>
+    <label>① 选择使用场景</label>
+    <div class="tags" id="scenes">
+      <span class="tag on" data-s="职场办公">💼 职场办公</span>
+      <span class="tag" data-s="自媒体创作">📱 自媒体创作</span>
+      <span class="tag" data-s="编程开发">💻 编程开发</span>
+      <span class="tag" data-s="副业赚钱">💰 副业赚钱</span>
+      <span class="tag" data-s="学习成长">📚 学习成长</span>
+      <span class="tag" data-s="生活助手">🏠 生活助手</span>
     </div>
   </div>
 
-  <div class="upsell">
-    <h3>🎁 想要全部 50+ 个场景模板？</h3>
-    <p>《AI工具实战手册》收录：<b>100 个免费 AI 工具</b> + <b>50 个提示词模板</b>（本生成器的完整版）+ <b>10 套实战工作流</b><br>
-    从工具到话术到流程，一次配齐，新手照着做就能上手。</p>
-    <div class="price">¥9.9 <small>¥99</small> <span style="font-size:14px;color:#dfe6e9;font-weight:400"> 限时价</span></div><br>
-    <a class="btn-buy" href="http://82.157.101.183:8088/monika/web/goods/pay-1785625938509-AI工具实战手册100个免费AI工具50个提示词模板.html" target="_blank">立即购买 · 付款后自动发货</a>
+  <div class="card">
+    <label>② 描述你想让 AI 帮你做什么</label>
+    <textarea id="task" placeholder="例如：帮我写一封给客户的英文催款邮件 / 给我的小红书写10个爆款标题 / 帮我解释这段报错代码的原因..."></textarea>
   </div>
 
-  <div class="features">
-    <h2>为什么你需要它？</h2>
-    <div class="feat-grid">
-      <div class="feat"><div class="icon">😫</div><div><b>别再问"AI怎么不好用"</b><span>90% 的问题出在提示词太模糊。结构化模板让 AI 一次听懂你的需求。</span></div></div>
-      <div class="feat"><div class="icon">🚀</div><div><b>30 秒出结果</b><span>选场景→填主题→复制，全程不到 30 秒，效率翻倍。</span></div></div>
-      <div class="feat"><div class="icon">🎯</div><div><b>覆盖 12+ 常用场景</b><span>小红书、短视频、周报、简历、朋友圈、公众号……打工人高频场景全覆盖。</span></div></div>
-      <div class="feat"><div class="icon">💡</div><div><b>免费工具清单</b><span>完整手册附 100 个免费 AI 工具清单，不花一分钱用上顶级 AI。</span></div></div>
+  <button class="btn" id="gen">⚡ 一键生成高质量提示词</button>
+
+  <div class="out" id="out">
+    <div class="card">
+      <div class="out-head">
+        <h3>✨ 生成的提示词（直接复制发给 AI）</h3>
+        <button class="copy-btn" id="copyBtn">📋 复制</button>
+      </div>
+      <div id="result"></div>
     </div>
   </div>
 
-  <footer>
-    本工具免费开放 · 完整版《AI工具实战手册》付费解锁更多模板<br>
-    购买后自动发送到邮箱，24 小时内到账，随时下载
-  </footer>
+  <div class="promo">
+    <h3>想要 100+ 条现成模板？</h3>
+    <p>这本《AI提示词实战手册》覆盖职场/自媒体/编程/副业/学习 6 大场景，每条都是复制即用，新手 1 小时上手。</p>
+    <a href="http://82.157.101.183:8088/monika/web/goods/pay-1785642284659-AI提示词实战手册100模板6大场景.html" target="_blank">¥9.9 立即获取手册 →</a>
+  </div>
+
+  <footer>免费工具 · AI提示词实战手册出品 · 兼容 ChatGPT / DeepSeek / Kimi / 豆包 / 文心一言</footer>
 </div>
 
 <script>
-const SCENES = [
-  { id:"xiaohongshu", name:"📕 小红书文案", tmpl:function(t){
-    return "你是小红书爆款文案专家，擅长写出高点赞、高收藏、高互动的种草笔记。\n\n请为「"+t+"」写一篇小红书种草笔记，要求：\n1. 标题：3个备选，带emoji，有吸引力（可用数字、痛点、悬念）\n2. 正文：200-300字，口语化、真诚、有细节，避免广告腔\n3. 结构：开头痛点/场景引入 → 核心卖点 → 真实体验感 → 行动号召\n4. 结尾带 5-8 个相关话题标签\n5. 语气像朋友分享，不像推销\n\n直接输出，不要解释。";
-  }},
-  { id:"douyin", name:"🎬 短视频脚本", tmpl:function(t){
-    return "你是短视频编导，擅长3秒抓住观众注意力。\n\n请为「"+t+"」创作一条 60 秒短视频脚本，要求：\n1. 黄金3秒开场（制造悬念/反差/痛点）\n2. 分镜脚本：每个镜头标注画面、台词、字幕、BGM建议\n3. 节奏：每5-8秒一个信息点或转折\n4. 结尾设置钩子引导点赞关注评论\n5. 提供 2 个不同风格的开场方案\n\n直接输出脚本表格，不要解释。";
-  }},
-  { id:"report", name:"📊 工作周报", tmpl:function(t){
-    return "你是职场汇报高手，擅长把流水账整理成老板爱看的周报。\n\n请把以下工作内容整理成一份专业周报：「"+t+"」\n要求：\n1. 本周核心成果（用数据说话，突出量化结果）\n2. 遇到的问题与解决方案\n3. 下周计划（按优先级排序）\n4. 需要资源支持的事项\n5. 语气专业但不官僚，重点突出价值\n\n直接输出成稿。";
-  }},
-  { id:"resume", name:"📝 简历优化", tmpl:function(t){
-    return "你是资深HR和简历优化专家，擅长把普通经历写成高匹配度简历。\n\n请优化以下经历描述：「"+t+"」\n要求：\n1. 用 STAR 法则重写（情境-任务-行动-结果）\n2. 每句话都用动词开头，突出量化成果（数字、百分比、规模）\n3. 针对目标岗位突出相关技能\n4. 给出一句话自我评价\n5. 控制在 3-5 条经历描述\n\n直接输出优化后的版本。";
-  }},
-  { id:"wechat", name:"💬 朋友圈营销", tmpl:function(t){
-    return "你是朋友圈文案高手，擅长写出不招人烦、反而想看的营销文案。\n\n请为「"+t+"」写 3 条不同风格的朋友圈文案：\n1. 故事型：用真实小故事带出产品，走心不硬广\n2. 价值型：分享干货+自然植入\n3. 紧迫型：限时优惠，制造稀缺感但不夸张\n每条 80-120 字，附建议配图方向和发布时间。\n\n直接输出。";
-  }},
-  { id:"gzh", name:"📰 公众号文章", tmpl:function(t){
-    return "你是资深新媒体编辑，擅长写有深度、有转发欲的公众号文章。\n\n请以「"+t+"」为主题，写一篇 1500 字的公众号文章框架+开头：\n1. 标题：5个备选（含数字、悬念、利益点）\n2. 文章大纲：引言-3个核心论点-案例-结尾升华\n3. 完整写出引言部分（300字，抓人）\n4. 每个论点给一个真实感强的案例提示\n5. 结尾引导关注+留言互动\n\n直接输出。";
-  }},
-  { id:"interview", name:"💼 面试准备", tmpl:function(t){
-    return "你是资深面试官，熟悉各行业面试套路。\n\n请针对「"+t+"」这个岗位/面试场景：\n1. 预测 8 个最可能被问的问题\n2. 对每个问题给出「回答框架+示例话术」\n3. 指出 3 个常见的致命错误及避免方法\n4. 设计一个可以反问面试官的高质量问题\n5. 给出自我介绍模板（30秒版本）\n\n直接输出，结构化呈现。";
-  }},
-  { id:"poem", name:"✍️ 创意写作", tmpl:function(t){
-    return "你是创意写作大师，文字有画面感和感染力。\n\n请以「"+t+"」为主题创作：\n1. 一首现代诗（8-12行）\n2. 一段 200 字的有画面感的散文\n3. 一句可以作为文案金句的话\n风格要求：不矫情、有真实细节、让人有共鸣。\n\n直接输出。";
-  }},
-];
+const SCENE_PROMPTS = {
+  "职场办公": "你是一位有10年经验的职场效率专家，精通向上管理、沟通表达和方案撰写。请以专业、结构化、可直接落地的风格完成以下任务。",
+  "自媒体创作": "你是一位爆款内容操盘手，深谙小红书/抖音/公众号的流量逻辑，擅长制造钩子、激发互动、提高完读率。请以网感强、口语化、有情绪张力的风格完成以下任务。",
+  "编程开发": "你是一位资深软件工程师，擅长代码审查、调试排错和架构设计。请给出可直接运行的代码或清晰的排错步骤，并解释关键原理。",
+  "副业赚钱": "你是一位副业变现顾问，熟悉各种低成本副业玩法和执行细节。请给出具体、可执行、能落地的操作步骤，避免空泛建议。",
+  "学习成长": "你是一位教育学专家，擅长把复杂知识拆解成易吸收的模块。请用费曼学习法风格，配合例子和类比，帮我真正理解并记住。",
+  "生活助手": "你是一位贴心的生活顾问，考虑周全、务实高效。请给出简洁实用的建议，必要时分步骤说明。"
+};
+const OUTPUT_REQ = "请按以下格式输出：\n1. 直接完成任务（不要解释你的思考过程）\n2. 若信息不足，先列出需要我补充的关键信息\n3. 结尾附上1条【追问建议】，引导我进一步优化结果";
 
-const FULL_SCENE_NAMES = [
-  "小红书文案","抖音脚本","视频号口播","知乎回答","公众号文章","朋友圈营销",
-  "工作周报","日报","OKR制定","会议纪要","简历优化","面试问答","自我介绍",
-  "产品文案","电商卖点","用户好评","客户跟进","销售话术","售后回复","投诉处理",
-  "英语邮件","英文翻译","语法纠错","雅思写作","论文润色","读书笔记","学习计划",
-  "思维导图","头脑风暴","竞品分析","SWOT","市场调研","品牌故事","起名建议",
-  "节日祝福","婚礼致辞","演讲稿","道歉信","催款话术","谈判策略","时间管理",
-  "健身计划","饮食方案","旅行攻略","收纳整理","亲子对话","情绪疏导","冥想引导","睡前故事"
-];
-
-let sceneGrid = document.getElementById("sceneGrid");
-SCENES.forEach(s => {
-  let b = document.createElement("div");
-  b.className = "scene-btn";
-  b.textContent = s.name;
-  b.dataset.id = s.id;
-  b.onclick = function(){ selectScene(s.id); };
-  sceneGrid.appendChild(b);
+document.querySelectorAll('.tag').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tag').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+  });
 });
-selectScene(SCENES[0].id);
 
-function selectScene(id){
-  document.querySelectorAll(".scene-btn").forEach(b => b.classList.toggle("active", b.dataset.id === id));
-  window._cur = id;
-}
+document.getElementById('gen').addEventListener('click',()=>{
+  const scene = document.querySelector('.tag.on').dataset.s;
+  const task = document.getElementById('task').value.trim();
+  if(!task){ alert('请先描述你想让 AI 帮你做什么'); return; }
+  const role = SCENE_PROMPTS[scene] || SCENE_PROMPTS["职场办公"];
+  const prompt = `${role}\n\n【我的任务】\n${task}\n\n【输出要求】\n${OUTPUT_REQ}`;
+  document.getElementById('result').textContent = prompt;
+  document.getElementById('out').classList.add('show');
+});
 
-function generate(){
-  const topic = document.getElementById("topicInput").value.trim();
-  if(!topic){ alert("请先输入主题/关键词 😊"); document.getElementById("topicInput").focus(); return; }
-  const scene = SCENES.find(s => s.id === window._cur);
-  const text = scene.tmpl(topic);
-  document.getElementById("outputBox").textContent = text;
-  const area = document.getElementById("outputArea");
-  area.classList.add("show");
-  document.getElementById("copyBtn").textContent = "📋 复制提示词";
-  document.getElementById("copyBtn").classList.remove("copied");
-  area.scrollIntoView({behavior:"smooth", block:"nearest"});
-}
-
-function copyResult(){
-  const text = document.getElementById("outputBox").textContent;
-  const btn = document.getElementById("copyBtn");
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(()=>{
-      btn.textContent = "✅ 已复制！去粘贴给AI吧";
-      btn.classList.add("copied");
-    });
-  } else {
-    const ta = document.createElement("textarea");
-    ta.value = text; document.body.appendChild(ta); ta.select();
-    document.execCommand("copy"); document.body.removeChild(ta);
-    btn.textContent = "✅ 已复制！去粘贴给AI吧";
-    btn.classList.add("copied");
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+  const txt = document.getElementById('result').textContent;
+  try{
+    await navigator.clipboard.writeText(txt);
+    const b=document.getElementById('copyBtn'); b.textContent='✅ 已复制'; setTimeout(()=>b.textContent='📋 复制',1500);
+  }catch(e){
+    const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    const b=document.getElementById('copyBtn'); b.textContent='✅ 已复制'; setTimeout(()=>b.textContent='📋 复制',1500);
   }
-}
+});
 </script>
 </body>
 </html>
